@@ -1,0 +1,24 @@
+language: cpp
+
+dist: trusty
+sudo: false
+
+matrix:
+  include:
+  - addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        - llvm-toolchain-precise
+        packages:
+        - g++-5
+        - clang
+    env:
+    - COMPILER=clang++
+    - OMPI_CXX=$COMPILER
+    script:
+    - make && make test
+
+before_script:
+  - export CXX=$COMPILER
+  - $CXX -v
